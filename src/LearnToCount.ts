@@ -1,4 +1,4 @@
-class LearnToCount{
+export class LearnToCount{
 
     constructor() {
         // Ensure that the DOM is fully loaded before running the script
@@ -102,3 +102,4 @@ class LearnToCount{
 }
 
 new LearnToCount();
+
