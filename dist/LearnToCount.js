@@ -1,57 +1,71 @@
 "use strict";
+const ELEMENTS = [
+    [1, "un"],
+    [2, "dos"],
+    [3, "tres"],
+    [4, "quatro"],
+    [5, "cinco"],
+    [6, "seis"],
+];
 class LearnToCount {
     constructor() {
+        this.firstSelection = [null, null];
+        this.secondSelection = [null, null];
+        this.firstShuffledElements = [];
+        this.secondShuffledElements = [];
         // Ensure that the DOM is fully loaded before running the script
         document.addEventListener("DOMContentLoaded", () => {
-            const elements = [
-                [1, "un"],
-                [2, "dos"],
-                [3, "tres"],
-                [6, "seis"],
-                [4, "quatro"],
-                [5, "cinco"],
-            ];
-            const shuffledElements = this.shuffle(elements);
-            const firstShuffledElements = [];
-            shuffledElements.forEach(element => {
-                const main = document.getElementById("main");
-                // Create a new div element
-                const newDiv = document.createElement("div");
-                newDiv.style.backgroundColor = "lightblue";
-                newDiv.style.width = "150px";
-                newDiv.style.height = "50px";
-                newDiv.style.padding = "5px";
-                newDiv.style.margin = "5px";
-                const newSpan = document.createElement("span");
-                newSpan.innerText = String(element[1]);
-                newDiv.appendChild(newSpan);
-                // Append the div to the body
-                firstShuffledElements.push(newDiv);
-            });
-            const secondShuffle = this.shuffle(elements);
-            const secondShuffledElements = [];
-            secondShuffle.forEach(element => {
-                const main = document.getElementById("main");
-                // Create a new div element
-                const newDiv = document.createElement("div");
-                newDiv.style.backgroundColor = "lightblue";
-                newDiv.style.width = "150px";
-                newDiv.style.height = "50px";
-                newDiv.style.padding = "5px";
-                newDiv.style.margin = "5px";
-                const newSpan = document.createElement("span");
-                newSpan.innerText = String(element[0]);
-                newDiv.appendChild(newSpan);
-                secondShuffledElements.push(newDiv);
-                // Append the div to the bo
-            });
-            let finalElements = this.combinedElements(firstShuffledElements, secondShuffledElements);
-            let finalShuffle = this.shuffle(finalElements);
+            //shuffle array
+            const shuffledElements = this.shuffle(ELEMENTS);
+            const secondShuffle = this.shuffle(ELEMENTS);
+            //add elements to elements array
+            this.addElements(secondShuffle, 0, this.secondShuffledElements);
+            this.addElements(shuffledElements, 1, this.firstShuffledElements);
+            //combine all element
+            let finalElements = this.combinedElements(this.firstShuffledElements, this.secondShuffledElements);
+            //shuffle
+            this.shuffle(finalElements);
             finalElements.forEach(element => {
                 const main = document.getElementById("main");
                 main === null || main === void 0 ? void 0 : main.appendChild(element);
             });
         });
+    }
+    addElements(shuffledElements, index, target) {
+        shuffledElements.forEach(element => {
+            const main = document.getElementById("main");
+            // Create a new div element
+            const newDiv = document.createElement("div");
+            newDiv.classList.add("tab");
+            newDiv.classList.add("lightblue");
+            //append data
+            newDiv.setAttribute("data-number", String(element[0]));
+            //append event on 
+            newDiv.addEventListener("click", (event) => this.dataCheck(event));
+            const newSpan = document.createElement("span");
+            newSpan.innerText = String(element[index]);
+            newDiv.appendChild(newSpan);
+            // Append the div to the body
+            target.push(newDiv);
+        });
+    }
+    /**
+     * on click save the consecutive two selelctions
+     */
+    dataCheck(event) {
+        //console.log(this.firstSelection);
+        const target = event.currentTarget;
+        const dataNumber = target.getAttribute("data-number");
+        const dataName = target.textContent;
+        target.classList.add('darkblue');
+        if (this.firstSelection[0] === null) {
+            this.firstSelection = [Number(dataNumber), dataName];
+        }
+        else if (Number(dataNumber) != this.firstSelection[0]) {
+            this.secondSelection = [Number(dataNumber), dataName];
+        }
+        console.log(this.firstSelection);
+        console.log(this.secondSelection);
     }
     combinedElements(first, second) {
         return first.concat(second);

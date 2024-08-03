@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <head></head>
-<script src="./dist/learnToCount.js"></script>
+<script src="./dist/LearnToCount.js">
+    import { LearnToCount } from "./src/LearnToCount";
+    new LearnToCount();
+</script>
 <body>
     <div id="main">
     </div>
@@ -8,29 +11,36 @@
 <style>
     #main{
         display: grid;
-        grid-template-columns: auto auto;
+        grid-template-columns: auto auto auto auto;
         width: 300px;
         margin: 0 auto;
         vertical-align: middle;
     
     }
-    .number{
-        color:whitd;
-        font-weight:bold;
-        text-align:center;
-        width: 150px;
-        height: 50px;
-        background-color: blue;
-        margin: 5px;
-        padding: 5px;
 
-    }
     .tab{
-        background-color: lightblue;
-        width: 150px;
+        color: black;
+        font-weight: bold;
+        text-align: center;
+        width: 50px;
         height: 50px;
         padding: 5px;
         margin: 5px;
+        display: flex;
+        border-radius:100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .lightblue{
+        background-color: lightblue;
+    }
+    .darkblue{
+        background-color: #41a9cb;
+    }
+
+    .tab:hover{
+       background-color: #41a9cb;
     }
 
 </style>
