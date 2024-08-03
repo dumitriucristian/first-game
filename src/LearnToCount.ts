@@ -76,7 +76,12 @@
     }
 
     /**
-     * on click save the consecutive two selelctions 
+     * on click save the first selection.
+     * If the second selection is not corrrect do not save
+     * 
+     * if the second selection is correct:
+     *   - remove both elements
+     *   - clear the selection
      */
     public dataCheck(event: Event)
     {
@@ -85,14 +90,27 @@
         const target = event.currentTarget as HTMLElement;
         const  dataNumber = target.getAttribute("data-number");
         const dataName = target.textContent;
-        target.classList.add('darkblue');
         
+
+        //save the first selection
         if(this.firstSelection[0] === null) {
             this.firstSelection = [Number(dataNumber), dataName];
-        }else if (Number(dataNumber) !=  this.firstSelection[0]){
-            this.secondSelection = [Number(dataNumber), dataName];
+            target.classList.remove("lightblue");
+            target.classList.add("darkblue");
+            target.classList.add("selected");
         }
         
+        //check for equality 
+        if (
+            (Number(dataNumber) ==  this.firstSelection[0]) &&
+            (this.firstSelection[1] != dataName )
+        ){
+            target.classList.add("selected");
+            //if lucky guess remove element 
+            document.querySelectorAll('.selected').forEach(e => e.remove());
+            //clear first selelection
+            this.firstSelection = [null, null];
+        }
         console.log(this.firstSelection);
         console.log(this.secondSelection);
     
