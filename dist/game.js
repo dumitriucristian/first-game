@@ -8,7 +8,7 @@ class Game {
         let attempts = 0;
         while (attempts < this.maxAttempts) {
             const guess = prompt("Guess a number betweend 1 and 10;");
-            const guessedNumber = parseInt(guess, 10);
+            const guessedNumber = parseInt(guess !== null && guess !== void 0 ? guess : '', 10);
             if (guessedNumber === this.targetNumber) {
                 alert("Congratulations");
             }

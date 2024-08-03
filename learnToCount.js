@@ -14,11 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
         var main = document.getElementById("main");
         // Create a new div element
         var newDiv = document.createElement("div");
-        newDiv.style.backgroundColor = "lightblue";
-        newDiv.style.width = "150px";
-        newDiv.style.height = "50px";
-        newDiv.style.padding = "5px";
-        newDiv.style.margin = "5px";
+        newDiv.className = "tab";
+        newDiv.setAttribute("data-number", String(element[0]));
         var newSpan = document.createElement("span");
         newSpan.innerText = String(element[1]);
         newDiv.appendChild(newSpan);
@@ -31,11 +28,12 @@ document.addEventListener("DOMContentLoaded", function () {
         var main = document.getElementById("main");
         // Create a new div element
         var newDiv = document.createElement("div");
-        newDiv.style.backgroundColor = "lightblue";
-        newDiv.style.width = "150px";
-        newDiv.style.height = "50px";
-        newDiv.style.padding = "5px";
-        newDiv.style.margin = "5px";
+        //add tab
+        newDiv.className = "tab";
+        //add number
+        newDiv.setAttribute("data-number", String(element[0]));
+        //add click event
+        newDiv.addEventListener("click", check);
         var newSpan = document.createElement("span");
         newSpan.innerText = String(element[0]);
         newDiv.appendChild(newSpan);
@@ -49,6 +47,9 @@ document.addEventListener("DOMContentLoaded", function () {
         main === null || main === void 0 ? void 0 : main.appendChild(element);
     });
 });
+function check() {
+    console.log("check");
+}
 function combinedElements(first, second) {
     return first.concat(second);
 }
